@@ -19,21 +19,26 @@ function createGrid(gridSize){
     for (let i = 0; i < gridSize * gridSize; i++ ){
         const divs = document.createElement("div");
         divs.classList.add("square");
+        divs.addEventListener("mouseover", changeColor);
         grid.appendChild(divs);
     }
+}
+
+function changeColor(e) {
+    e.target.classList.replace("square", "color");
 }
 
 function initializeButtonEvents(){
     const resizeButton = document.querySelector(".resize");
     resizeButton.addEventListener("click", gridResize);
-
+/*
     const blackButton = document.querySelector(".black");
     blackButton.addEventListener("click", () => {
         blackButton.classList.toggle("control-button-inactive");
     });
-/*
-    const square = document.querySelector(".square");
-    square.addEventListener("click", function(event) {
+
+    const square = document.querySelectorAll(".square");
+    square.addEventListener("mouseover", function(event) {
         event.target.classList.replace("square", "color");
     }); */
 }
