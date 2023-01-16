@@ -12,12 +12,14 @@ html{
 
 .right {
     float: right;
+    margin-right: 4rem;
 }
 
 .left {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-left: 6rem;
 }
 
 .square {
@@ -28,4 +30,14 @@ html{
 button {
     width: 8rem;
     height: 2rem;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #03bb56;
+    font-weight: bolder;
+    transition: transform .5s;
+}
+button:hover {
+    transform: scale(1.5);
 }

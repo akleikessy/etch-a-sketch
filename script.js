@@ -1,9 +1,7 @@
 const DEFAULT_COLOR = "black";
-const DEFAULT_MODE = "color";
 const DEFAULT_SIZE = 16;
 
 let color = DEFAULT_COLOR;
-let currentMode = DEFAULT_MODE;
 let gridSize = DEFAULT_SIZE;
 
 const grid = document.querySelector(".gridContainer");
@@ -25,17 +23,9 @@ function createGrid(gridSize){
     for (let i = 0; i < gridSize * gridSize; i++ ){
         const divs = document.createElement("div");
         divs.classList.add("square");
-        //divs.addEventListener("mouseover", changeColor);
         grid.appendChild(divs);
     }
 }
-/*
-function changeColor(e) {
-    if (e.type === "mouseover" && !draw) return;
-    //e.target.classList.replace("square", "color");
-    e.target.style.backgroundColor = "black";
-}
-*/
 
 function randomColor() {
     //generate a number between 0 and 255 inclusive then convert to corresponding hex value
@@ -45,7 +35,6 @@ function randomColor() {
     return "#" + hr + hg + hb;
 }
 
-console.log(randomColor());
 
 function initializeButtonEvents(){
     const resizeButton = document.querySelector(".resize");
@@ -76,7 +65,6 @@ function initializeButtonEvents(){
             element.addEventListener("mouseover", (event) => {
                 if (event.type === "mouseover" && !draw) return;
                 event.target.style.backgroundColor = randomColor();
-                //console.log(randomColor());
             });
         });
     })
