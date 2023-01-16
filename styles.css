@@ -15,23 +15,17 @@ html{
 }
 
 .left {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-/*
-.gridContainer {
-    display: inline-grid;
-    border: 5px solid black;
-    border-radius: 5px;
-    height: 575px;
-    width: 575px;
-}
-*/
 .square {
     background-color: white;
     border: 1px solid black ;
 }
-.color {
-    background-color: gray;
-    border: 1px solid black;
+ 
+button {
+    width: 8rem;
+    height: 2rem;
 }

@@ -1,13 +1,19 @@
-let gridSize = 16;
+const DEFAULT_COLOR = "black";
+const DEFAULT_MODE = "color";
+const DEFAULT_SIZE = 16;
 
-let paintColor = "black";
+let color = DEFAULT_COLOR;
+let currentMode = DEFAULT_MODE;
+let gridSize = DEFAULT_SIZE;
 
-let mouseDown = 0;
-document.body.onmousedown = () => mouseDown = 1;
-document.body.onmouseup = () => mouseDown = 0;
+const grid = document.querySelector(".gridContainer");
+
+
+let draw = false;
+document.body.onmousedown = () => draw = true;
+document.body.onmouseup = () => draw = false;
 
 function createGrid(gridSize){
-    const grid = document.querySelector(".gridContainer");
     grid.style.setProperty("display", `inline-grid`);
     grid.style.setProperty("grid-template-columns", `repeat(${gridSize}, 2fr)`);
     grid.style.setProperty("grid-template-rows", `repeat(${gridSize}, 2fr)`);
@@ -19,28 +25,61 @@ function createGrid(gridSize){
     for (let i = 0; i < gridSize * gridSize; i++ ){
         const divs = document.createElement("div");
         divs.classList.add("square");
-        divs.addEventListener("mouseover", changeColor);
+        //divs.addEventListener("mouseover", changeColor);
         grid.appendChild(divs);
     }
 }
-
+/*
 function changeColor(e) {
-    e.target.classList.replace("square", "color");
+    if (e.type === "mouseover" && !draw) return;
+    //e.target.classList.replace("square", "color");
+    e.target.style.backgroundColor = "black";
 }
+*/
+
+function randomColor() {
+    //generate a number between 0 and 255 inclusive then convert to corresponding hex value
+    let hr = Math.floor(Math.random() * 256).toString(16).padStart(2, "0");
+    let hg = Math.floor(Math.random() * 256).toString(16).padStart(2, "0");
+    let hb = Math.floor(Math.random() * 256).toString(16).padStart(2, "0");
+    return "#" + hr + hg + hb;
+}
+
+console.log(randomColor());
 
 function initializeButtonEvents(){
     const resizeButton = document.querySelector(".resize");
     resizeButton.addEventListener("click", gridResize);
-/*
-    const blackButton = document.querySelector(".black");
-    blackButton.addEventListener("click", () => {
-        blackButton.classList.toggle("control-button-inactive");
-    });
 
-    const square = document.querySelectorAll(".square");
-    square.addEventListener("mouseover", function(event) {
-        event.target.classList.replace("square", "color");
-    }); */
+    const blackBtn = document.querySelector(".black");
+    blackBtn.addEventListener("click", () => {
+        divsCell = document.querySelectorAll(".square");
+        divsCell.forEach(element => {
+            element.addEventListener("mouseover", (event) => {
+                if (event.type === "mouseover" && !draw) return;
+                event.target.style.backgroundColor = color;
+            })
+        })
+    })
+
+
+    const clearBtn = document.querySelector(".clear");
+    clearBtn.addEventListener("click", () => {
+        grid.innerHTML = "";
+        createGrid(gridSize);
+    })
+
+    const rainbow = document.querySelector(".rainbow");
+    rainbow.addEventListener("click", () => {
+        divsCell = document.querySelectorAll(".square");
+        divsCell.forEach(element => {
+            element.addEventListener("mouseover", (event) => {
+                if (event.type === "mouseover" && !draw) return;
+                event.target.style.backgroundColor = randomColor();
+                //console.log(randomColor());
+            });
+        });
+    })
 }
 
 function gridResize() {
